@@ -2,7 +2,7 @@
 
 
 class Db {
-    private static mysqli $connection;
+    private static ?mysqli $connection = null;
     private static $host = "localhost";
     private static $username = "root";
     private static $password = "";
@@ -14,7 +14,7 @@ class Db {
 
     public static function getInstance():mysqli
     {
-        if(Db::$connection==null){
+        if(!Db::$connection){
             try {
                 Db::$connection =new mysqli(Db::$host, Db::$username,Db::$password, Db::$database);
             } catch (\Throwable $th) {
