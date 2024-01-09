@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <title>Todo App</title>
 </head>
@@ -12,17 +13,18 @@
         <header>
             <h1>Todo App</h1>
         </header>
-        <form action="api.php?action=post-todo" method="post" >
+        <form hx-post="api.php?action=post-todo"  hx-target="#todoList" hx-swap="beforeend">
             <div>
                 <input type="text" name="todo" id="todo" placeholder="todo value">
                 <button type="submit">Add Todo</button>
             </div>
         </form>
-        <section id="todoList">
-            <ul>
-                <li>todo 1</li>
-                <li class="done">todo 2</li>
+        <section>
+            <ul id="todoList" hx-get="api.php?action=todos-list" hx-trigger="load" hx-indicator="#indicator">
+                <!-- <li>todo 1</li>
+                <li class="done">todo 2</li> -->
             </ul>
+            <img src="./loader.gif" alt="loading ..." class="htmx-indicator loader" id="indicator">
         </section>
     </main>
     
