@@ -17,11 +17,14 @@ class Todo
     public function insertTodo()
     {
         try {
-            $query = "INSERT INTO todos (value) VALUES (:todoValue)";
+            $query = "INSERT INTO todos (value) VALUES (?)";
             $statement = Db::getInstance()->prepare($query);
-            $statement->bind_param(':todoValue', $this->value, PDO::PARAM_STR);
+            $statement->bind_param('s', $this->value);
             $statement->execute();
+            $insertedId  = Db::getInstance()->insert_id;
             Db::getInstance()->close();
+            if(isset($insertedId)) return Todo::render($this->value,false,$insertedId);
+           //here i want to check if the isert is suceess and i wan to grab the id of the iserted todo
         } catch (PDOException $e) {
         }
     }
@@ -38,7 +41,7 @@ class Todo
             // Fetch data from the result set
             while ($row = $result->fetch_assoc()) {
                 // Access individual columns in each row
-                $todos += Todo::render($row['value'], $row['done'], $row['id']);
+                $todos .= Todo::render($row['value'], $row['done'] == null ? false : $row['done'] , $row['id']);
             }
 
             return $todos;
