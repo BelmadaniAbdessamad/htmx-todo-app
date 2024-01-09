@@ -42,7 +42,7 @@ form button:hover{
 }
 
 section{
-    width: 52%;
+   
 
 }
 
@@ -60,8 +60,17 @@ section li{
     padding: 20px;
     margin-bottom: 7px;
     border-radius: 5px;
+    width: 23rem;
 }
 
 .done{
     opacity: .6;
+}
+
+.loader{
+ 
+   height: 100px;
+   width: 100px;
+   
+
 }
