@@ -17,6 +17,9 @@ switch ($_GET['action']) {
     case 'update-todo':
         echo Todo::setDone($_GET['id']);
         break;
+    case 'delete-todo':
+        echo Todo::deleteTodo($_GET['id']);
+        break;
     default:
         # code...
         break;
