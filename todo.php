@@ -12,12 +12,12 @@ class Todo
         $done_class = $done ? "'done'" : " ";
         $actions = "";
         if (!$done) {
-            $actions = "<button hx-swap='outerHTML'  hx-target='#todo-".$id."' hx-put='api.php?action=update-todo&id=" . $id . "'>Done</button>";
+            $actions = "<button class='done-button'  hx-swap='outerHTML'  hx-target='#todo-" . $id . "' hx-put='api.php?action=update-todo&id=" . $id . "'>Done</button>";
         }
-        $actions .= "<button hx-delete='api.php?action=delete-todo&id=" . $id . "'>Delete</button>";
+        $actions .= "<button class='delete-button'  hx-target='#todo-" . $id . "' hx-swap'outerHTML'  hx-delete='api.php?action=delete-todo&id=" . $id . "'>Delete</button>";
 
 
-        return "<li id='todo-".$id."' class=" . $done_class . ">  <b>". $value . "</b>  <span class='actions'>" . $actions . " </span></li>";
+        return "<li id='todo-" . $id . "' class=" . $done_class . ">  <b>" . $value . "</b>  <span class='actions'>" . $actions . " </span></li>";
     }
 
     public function insertTodo()
@@ -44,7 +44,7 @@ class Todo
             $statement = Db::getInstance()->prepare($query);
             $statement->bind_param('i', $id);
             $success = $statement->execute();
-            
+
             if ($success) {
                 $todo = Todo::getTodo($id);
                 if (!$todo) return;
@@ -61,18 +61,15 @@ class Todo
         $todos = "";
         // Check if the query was successful
         if ($result) {
-
-
-            // Fetch data from the result set
-            while ($row = $result->fetch_assoc()) {
-                // Access individual columns in each row
-                $todos .= Todo::render($row['value'], $row['done'] == null ? false : $row['done'], $row['id']);
-            }
-
-
-
-            // Free the result set
-            $result->free();
+            
+                // Fetch data from the result set
+                while ($row = $result->fetch_assoc()) {
+                    // Access individual columns in each row
+                    $todos .= Todo::render($row['value'], $row['done'] == null ? false : $row['done'], $row['id']);
+                }
+                // Free the result set
+                $result->free();
+            
         } else {
             echo "Error: " . $query . "<br>" . Db::getInstance()->error;
         }
