@@ -11,11 +11,11 @@
 <body>
     <main>
         <header>
-            <h1>Todo App</h1>
+            <h1>TODO APP - HTMX</h1>
         </header>
         <form hx-post="api.php?action=post-todo"  hx-target="#todoList" hx-swap="beforeend">
             <div>
-                <input type="text" name="todo" id="todo" placeholder="todo value">
+                <input type="text" name="todo" id="todo" placeholder="Add a todo here">
                 <button type="submit">Add Todo</button>
             </div>
         </form>
