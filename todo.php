@@ -106,4 +106,24 @@ class Todo
             return false;
         }
     }
+
+    public static function deleteTodo(int $id)
+    {
+        if (!isset($id)) {
+            return false;
+        }
+
+        try {
+
+            $query = "DELETE FROM todos WHERE id=?";
+            $statement = Db::getInstance()->prepare($query);
+            $statement->bind_param('i', $id);
+            $success = $statement->execute();
+
+            if ($success) {
+                return "<h3>Deleted Successfully</h3>";
+            }
+        } catch (Exception $e) {
+        }
+    }
 }
