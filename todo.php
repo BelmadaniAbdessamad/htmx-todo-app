@@ -79,5 +79,34 @@ class Todo
 
         // Close the connection
         Db::getInstance()->close();
+        return $todos;
+    }
+
+    public static function getTodo(int $id)
+    {
+        if (!isset($id)) {
+            return false;
+        }
+
+        try {
+            $query = "SELECT * FROM todos WHERE id=?";
+            $statement = Db::getInstance()->prepare($query);
+            $statement->bind_param('i', $id);
+            $success = $statement->execute();
+
+            if ($success) {
+                $result = $statement->get_result();
+                $todo = $result->fetch_assoc();
+                Db::getInstance()->close();
+                return $todo;
+            } else {
+                Db::getInstance()->close();
+                return false;
+            }
+        } catch (Exception $e) {
+            // Handle the exception, e.g., log the error or display a message
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
     }
 }
