@@ -1,9 +1,7 @@
 body {
   /* background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
     color: white; */
-  margin: 0;
-  padding: 0;
-  height: 100vh;
+ 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +14,8 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  flex: 1;
+  
 }
 input {
   padding: 10px;
@@ -33,6 +32,11 @@ input:focus {
   border-color: #4b6cb7;
 }
 header {
+
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* form input {
@@ -40,6 +44,9 @@ header {
   padding: 10px;
   border-radius: 5px;
 } */
+form{
+  margin: 20px;
+}
 form div {
   position: relative;
 }
@@ -66,9 +73,9 @@ section ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 10px;
   color: black;
-  max-height: 300px; /* Set a maximum height for the list */
+  max-height: 70vh; /* Set a maximum height for the list */
   overflow: auto; /* Add a scrollbar when the content exceeds the maximum height */
   margin-bottom: auto;
 }
@@ -142,4 +149,11 @@ h3 {
 
 .done-button:hover {
   background-color: #45a049;
+}
+.reload{
+  height: 20px;
+  color: wheat;
+  cursor: pointer;
+  margin-left: 2rem;
+  
 }
