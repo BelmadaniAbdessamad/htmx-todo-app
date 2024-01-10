@@ -14,7 +14,9 @@ switch ($_GET['action']) {
     case 'todos-list':
         echo Todo::getTodos();
         break;
-
+    case 'update-todo':
+        echo Todo::setDone($_GET['id']);
+        break;
     default:
         # code...
         break;
