@@ -1,76 +1,83 @@
-main{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-   
-
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-header{
-
+header {
 }
 
-form input{
- width: 400px;
- padding: 10px;
- border-radius: 5px;
- 
+form input {
+  width: 400px;
+  padding: 10px;
+  border-radius: 5px;
 }
-form div{
-    position: relative;
+form div {
+  position: relative;
 }
-form button{
-    
-    
-    border: none;
-    padding: 10px;
-    right: 2px;
-    top: 2px;
-    position: absolute;
-    border-bottom-right-radius: 2px;
-    border-top-right-radius: 2px;
-    transition: .3s;
-    
-    
-
+form button {
+  border: none;
+  padding: 10px;
+  right: 2px;
+  top: 2px;
+  position: absolute;
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
+  transition: 0.3s;
 }
 
-form button:hover{
-    background-color: gray;
-    color: aliceblue;
+form button:hover {
+  background-color: gray;
+  color: aliceblue;
 }
 
-section{
-   
-
+section {
 }
 
-section ul{
-    
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
+section ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
 }
 
-section li{
-
-    background-image: url("todo-background.avif");
-    padding: 20px;
-    margin-bottom: 7px;
-    border-radius: 5px;
-    width: 23rem;
+section li {
+  background-image: url("todo-background.avif");
+  padding: 20px;
+  margin-bottom: 7px;
+  border-radius: 5px;
+  width: 23rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.done{
-    opacity: .6;
+.done {
+  opacity: 0.6;
+}
+.done b {
+  text-decoration: line-through; /* Remove line-through for buttons inside .done */
 }
 
-.loader{
- 
-   height: 100px;
-   width: 100px;
-   
-
+.loader {
+  height: 100px;
+  width: 100px;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  width: 6rem;
+}
+.actions button {
+  padding: 5px;
+  transition: 0.3s;
+  border: none;
+  border-radius: 3px;
+  margin-left: 1rem;
+}
+.actions button:hover {
+  background-color: cadetblue;
+  color: wheat;
 }
