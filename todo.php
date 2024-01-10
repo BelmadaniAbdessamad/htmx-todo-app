@@ -10,8 +10,14 @@ class Todo
     public static function render(string $value, bool $done, int $id): string
     {
         $done_class = $done ? "'done'" : " ";
+        $actions = "";
+        if (!$done) {
+            $actions = "<button hx-swap='outerHTML'  hx-target='#todo-".$id."' hx-put='api.php?action=update-todo&id=" . $id . "'>Done</button>";
+        }
+        $actions .= "<button hx-delete='api.php?action=delete-todo&id=" . $id . "'>Delete</button>";
 
-        return "<li class=" . $done_class . "> " . $id . " - " . $value . " </li>";
+
+        return "<li id='todo-".$id."' class=" . $done_class . ">  <b>". $value . "</b>  <span class='actions'>" . $actions . " </span></li>";
     }
 
     public function insertTodo()
@@ -23,9 +29,28 @@ class Todo
             $statement->execute();
             $insertedId  = Db::getInstance()->insert_id;
             Db::getInstance()->close();
-            if(isset($insertedId)) return Todo::render($this->value,false,$insertedId);
-           //here i want to check if the isert is suceess and i wan to grab the id of the iserted todo
-        } catch (PDOException $e) {
+            if (isset($insertedId)) return Todo::render($this->value, false, $insertedId);
+            //here i want to check if the isert is suceess and i wan to grab the id of the iserted todo
+        } catch (Exception $e) {
+        }
+    }
+    public static function setDone(int $id)
+    {
+        if (!isset($id)) return;
+
+        try {
+
+            $query = "UPDATE todos SET done=true WHERE id=?";
+            $statement = Db::getInstance()->prepare($query);
+            $statement->bind_param('i', $id);
+            $success = $statement->execute();
+            
+            if ($success) {
+                $todo = Todo::getTodo($id);
+                if (!$todo) return;
+                return Todo::render($todo['value'], $todo['done'] == null ? false : $todo['done'], $id);
+            }
+        } catch (Exception $e) {
         }
     }
 
@@ -33,18 +58,18 @@ class Todo
     {
         $query = "SELECT * FROM todos";
         $result = Db::getInstance()->query($query);
-
+        $todos = "";
         // Check if the query was successful
         if ($result) {
 
-            $todos = "";
+
             // Fetch data from the result set
             while ($row = $result->fetch_assoc()) {
                 // Access individual columns in each row
-                $todos .= Todo::render($row['value'], $row['done'] == null ? false : $row['done'] , $row['id']);
+                $todos .= Todo::render($row['value'], $row['done'] == null ? false : $row['done'], $row['id']);
             }
 
-            return $todos;
+
 
             // Free the result set
             $result->free();
